@@ -1,0 +1,4 @@
+---
+
+netdevice: eth0
+keep_vip: 192.168.178.21

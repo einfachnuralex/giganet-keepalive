@@ -1,0 +1,21 @@
+########################
+## VRRP configuration ##
+########################
+
+# Identify the VRRP instance as, in this case, "failover_link".
+vrrp_instance failover_link {
+
+    state BACKUP
+    interface {{ netdevice }}
+    virtual_router_id 15
+    priority 250
+    advert_int 1
+    authentication {
+        auth_type AH
+        auth_pass dsoi01sa
+    }
+
+    virtual_ipaddress {
+        {{ keep_vip }} dev {{ netdevice }} label {{ netdevice }}:vip
+    }
+}

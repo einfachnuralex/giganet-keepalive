@@ -1,0 +1,27 @@
+---
+- name: Install keepalived
+  apt:
+    name: "keepalived"
+    state: present
+
+- name: Enable non local bind
+  sysctl:
+    name: net.ipv4.ip_nonlocal_bind
+    value: "1"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+- name: Keepalived Config
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: 0640
+
+- name: Start Keepalived
+  service:
+    name: keepalived
+    state: started
+    enabled: yes
